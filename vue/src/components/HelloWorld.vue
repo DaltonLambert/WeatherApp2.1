@@ -1,9 +1,13 @@
 <template>
  <div class="container">
     <header class="header">
+      <div class="header-content">
       <h1>Dalton's Weather App</h1>
+      <div class="search-container">
       <input class="search-bar" type="text" placeholder="Search for a city" v-model="searchTerm">
       <button @click="searchForWeather">Search</button>
+      </div>
+      </div>
     </header>
     <main class="main">
       <template v-if="temperature">
@@ -120,4 +124,6 @@ h2 {
 p{
   color: white;
 }
+
+
 </style>
