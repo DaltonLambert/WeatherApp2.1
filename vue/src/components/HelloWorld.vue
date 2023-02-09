@@ -12,15 +12,21 @@
     <main class="main">
       <template v-if="temperature">
       <div class="weather-card">
-        <h1>{{temperature.location }}</h1>
+        <h1>{{temperature.location }} <span class="current-time">{{currentTime}}</span></h1>
         <h2>Current Conditions</h2>
-        <p> {{temperature.description }} <img :src="`http://openweathermap.org/img/wn/${temperature.icon}@2x.png`" alt="Weather condition icon" /></p>
+        <div class="weather-components">
+        <p> {{temperature.description }} 
+          <img class="icon" :src="`http://openweathermap.org/img/wn/${temperature.icon}@2x.png`" alt="Weather condition icon" />
+        </p>
         <p>Temperature: {{temperature.temperature }}°F</p>
         <p>Humidity: {{temperature.humidity}}</p>
       </div>
+      </div>
      </template>
     </main>
-    <footer class="footer">Footer</footer>
+    <footer class="footer">
+      
+    </footer>
   </div>
 </template>
 
@@ -34,7 +40,13 @@ export default {
     return {
       searchTerm: '',
       temperature: '',
+      currentTime: ''
     };
+  },
+  mounted() {
+    setInterval(() => {
+      this.currentTime = new Date().toLocaleTimeString();
+    }, 1000);
   },
   methods: {
     async searchForWeather() {
@@ -57,7 +69,7 @@ export default {
   grid-template-columns: 1fr;
   grid-template-areas: "header" "main" "footer";
   height: 100vh;
-  background-image: url('https://images2.alphacoders.com/949/949049.png');
+  background-image: url('https://i.pinimg.com/originals/31/68/c0/3168c09eeeb529be5b321575fe56b02b.gif');
   background-size: cover;
 }
 .header {
@@ -74,6 +86,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Montserrat;
 }
 .footer {
   grid-area: footer;
@@ -110,7 +123,7 @@ button {
   width: 400px;
   height: 400px;
   margin: 2rem auto;
-  opacity: 80%;
+  opacity: 85%;
 }
 
 h1 {
@@ -124,6 +137,21 @@ h2 {
 p{
   color: white;
 }
+
+.weather-components{
+  font-size:22pt;
+}
+
+.icon{
+  height: 120px;
+  width: 120px;
+}
+
+.current-time {
+  font-size: 20px;
+  color: gray;
+}
+
 
 
 </style>
