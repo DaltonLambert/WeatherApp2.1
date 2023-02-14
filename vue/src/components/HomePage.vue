@@ -10,7 +10,8 @@
       </div>
     </header>
     <main class="main">
-      <template v-if="temperature">
+      <template v-if="temperature"> 
+      <div class="main-content">
       <div class="weather-card">
         <h1>{{temperature.location }} <span class="current-time">{{currentTime}}</span></h1>
         <h2>Current Conditions</h2>
@@ -22,12 +23,15 @@
         <p>Humidity: {{temperature.humidity}}</p>
       </div>
       </div>
+      <div class="forecast-card-container">
       <div class="forecast-card" v-for="(day, index) in forecast" :key="index">
-        <h1>{{ day.high }}</h1>
-        <h1>{{ day.low }}</h1>
         <h1>
-          <img class="icon" :src="`http://openweathermap.org/img/wn/${day.icon}@2x.png`" alt="Weather condition icon" />
+          <img class="icon2" :src="`http://openweathermap.org/img/wn/${day.icon}@2x.png`" alt="Weather condition icon" />
         </h1>
+        <h1>{{ day.high }}°F</h1>
+        <h1>{{ day.low }}°F</h1>
+      </div>
+      </div>
       </div>
      </template>
     </main>
@@ -94,6 +98,7 @@ export default {
   align-items: center;
   font-family: monospace, serif;
   height: 20vh;
+  padding-bottom: 50px;
 }
 .main {
   grid-area: main;
@@ -102,6 +107,10 @@ export default {
   align-items: center;
   justify-content: center;
   font-family: Montserrat;
+}
+.main-content {
+  display: flex;
+  flex-direction: column;
 }
 .footer {
   grid-area: footer;
@@ -141,6 +150,23 @@ button {
   opacity: 85%;
 }
 
+.forecast-card {
+  background-color: black;
+  
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 2rem;
+  text-align: center;
+  width: 200px;
+  height: 200px;
+  
+  opacity: 85%;
+  margin-right: 20px;
+  
+}
+.forecast-card-container {
+  display: flex;
+
+}
 h1 {
   color: white;
 }
@@ -167,16 +193,12 @@ p{
   color: gray;
 }
 
-.forecast-card {
-  background-color: black;
-  border-radius: 3rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  padding: 2rem;
-  text-align: center;
-  width: 400px;
-  height: 400px;
-  margin: 2rem auto;
-  opacity: 85%;
+.icon2{
+  height: 100px;
+  width: 100px;
+}
+.forecast-card-container h1 {
+  margin: 0;
 }
 
 </style>
