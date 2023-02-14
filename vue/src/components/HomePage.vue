@@ -22,17 +22,16 @@
         <p>Humidity: {{temperature.humidity}}</p>
       </div>
       </div>
-      <div class="forecast-card">
-        <h1>{{ forecast.high }}</h1>
-        <h1>{{ forecast.low }}</h1>
+      <div class="forecast-card" v-for="(day, index) in forecast" :key="index">
+        <h1>{{ day.high }}</h1>
+        <h1>{{ day.low }}</h1>
         <h1>
-          <img class="icon" :src="`http://openweathermap.org/img/wn/${forecast.icon}@2x.png`" alt="Weather condition icon" />
+          <img class="icon" :src="`http://openweathermap.org/img/wn/${day.icon}@2x.png`" alt="Weather condition icon" />
         </h1>
       </div>
      </template>
     </main>
     <footer class="footer">
-      
     </footer>
   </div>
 </template>
@@ -49,7 +48,7 @@ export default {
       temperature: '',
       currentTime: '',
       timezone: '',
-      forecast: ''
+      forecast: []
     };
   },
   mounted() {
