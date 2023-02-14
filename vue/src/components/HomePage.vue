@@ -40,12 +40,15 @@ export default {
     return {
       searchTerm: '',
       temperature: '',
-      currentTime: ''
+      currentTime: '',
+      timezone: ''
     };
   },
   mounted() {
     setInterval(() => {
-      this.currentTime = new Date().toLocaleTimeString();
+      let date = new Date();
+      date.setUTCSeconds(date.getUTCSeconds() + this.temperature.timezone + 18000);
+      this.currentTime = date.toLocaleTimeString();
     }, 1000);
   },
   methods: {
@@ -54,6 +57,7 @@ export default {
     const weather = await WeatherService.findByLocation(this.searchTerm);
     console.log(weather.data);
     this.temperature = weather.data;
+    this.timezone = weather.data.timezone;
   } catch (error) {
     console.error(error);
   }

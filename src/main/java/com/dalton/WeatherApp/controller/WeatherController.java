@@ -53,6 +53,7 @@ public class WeatherController {
             String description = (String) response.get("description");
             List<Map<String, Object>> weather = (List<Map<String, Object>>) response.get("weather");
             String icon = (String) weather.get(0).get("icon");
+            int timezone = (int) response.get("timezone");
             // Check if the humidity value is not null
             if(humidity == null){
                 // Throw an exception if the humidity value is null
@@ -67,7 +68,7 @@ public class WeatherController {
             double temperatureFahrenheit = (temperature - 273.15) * 9 / 5 + 32;
 
             // Create a new Weather object and add it to the weatherList
-            weatherList.add(new Weather(locationName, temperatureFahrenheit, humidityValue, description, icon));
+            weatherList.add(new Weather(locationName, temperatureFahrenheit, humidityValue, description, icon, timezone));
         }
 
         return weatherList;
@@ -96,6 +97,7 @@ public class WeatherController {
         List<Map<String, Object>> weather = (List<Map<String, Object>>) response.get("weather");
         String description = (String) weather.get(0).get("main");
         String icon = (String) weather.get(0).get("icon");
+        int timezone = (int) response.get("timezone");
 
         // Check if the humidity value is not null
         if(humidity == null){
@@ -114,7 +116,7 @@ public class WeatherController {
         temperatureFahrenheit = Math.round(temperatureFahrenheit);
 
         // Create a new Weather object and return it
-        return new Weather(locationName, temperatureFahrenheit, humidityValue, description, icon);
+        return new Weather(locationName, temperatureFahrenheit, humidityValue, description, icon, timezone);
     }
 
 

@@ -8,16 +8,19 @@ public class Weather {
         private int humidity;
         private String icon;
 
+    private int timezone;
+
     private String description;
 
         public Weather() {}
 
-        public Weather(String location, double temperature, int humidity, String description, String icon) {
+        public Weather(String location, double temperature, int humidity, String description, String icon, int timezone) {
             this.location = location;
             this.temperature = temperature;
             this.humidity = humidity;
             this.description = description;
             this.icon = icon;
+            this.timezone = timezone;
         }
 
         public int getId() {
@@ -68,6 +71,14 @@ public class Weather {
         this.description = description;
             }
 
+        public int getTimezone() {
+            return timezone;
+        }
+
+        public void setTimezone(int timezone) {
+            this.timezone = timezone;
+        }
+
         @Override
         public String toString() {
             return "Weather{" +
@@ -77,6 +88,7 @@ public class Weather {
                     ", humidity=" + humidity +
                     ", description=" + description +
                     ", icon=" + icon +
+                    ", timeZone=" + timezone +
                     '}';
         }
     }
