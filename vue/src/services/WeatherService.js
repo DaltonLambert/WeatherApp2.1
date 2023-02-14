@@ -9,5 +9,8 @@ export default {
     findByLocation(location) {
     return http.get(`weather/location/${location}`);
     },
+    getForecast(location) {
+        return http.get(`forecast/location/${location}`);
+        },
 
     }
