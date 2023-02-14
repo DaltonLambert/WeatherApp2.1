@@ -22,6 +22,13 @@
         <p>Humidity: {{temperature.humidity}}</p>
       </div>
       </div>
+      <div class="forecast-card">
+        <h1>{{ forecast.high }}</h1>
+        <h1>{{ forecast.low }}</h1>
+        <h1>
+          <img class="icon" :src="`http://openweathermap.org/img/wn/${forecast.icon}@2x.png`" alt="Weather condition icon" />
+        </h1>
+      </div>
      </template>
     </main>
     <footer class="footer">
@@ -41,7 +48,8 @@ export default {
       searchTerm: '',
       temperature: '',
       currentTime: '',
-      timezone: ''
+      timezone: '',
+      forecast: ''
     };
   },
   mounted() {
@@ -58,10 +66,14 @@ export default {
     console.log(weather.data);
     this.temperature = weather.data;
     this.timezone = weather.data.timezone;
+    const forecast = await WeatherService.getForecast(this.searchTerm); 
+    this.forecast = forecast.data;
   } catch (error) {
     console.error(error);
   }
 }
+
+
 
   }
 };
@@ -156,6 +168,16 @@ p{
   color: gray;
 }
 
-
+.forecast-card {
+  background-color: black;
+  border-radius: 3rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 2rem;
+  text-align: center;
+  width: 400px;
+  height: 400px;
+  margin: 2rem auto;
+  opacity: 85%;
+}
 
 </style>
