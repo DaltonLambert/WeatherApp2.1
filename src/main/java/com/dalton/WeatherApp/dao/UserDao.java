@@ -8,5 +8,5 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    User createUser(User user);
+    boolean createUser(String username, String passwordHash);
 }
