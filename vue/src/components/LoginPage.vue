@@ -1,6 +1,6 @@
 <template>
     <header>
-        <h1>This is a login page</h1>
+        <h1>LOGIN</h1>
     </header>
     <main>
         <form>
@@ -17,3 +17,26 @@
         <p>&copy; 2022 Dalton's Weather App</p>
     </footer>
 </template>
+
+<style scoped>
+
+#username {
+    font-size: 20px;
+    margin: 10px;
+}
+
+#password {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    margin-left:15px;
+    height: 37px;
+    width: 255px;
+    border-color: black;
+    border-radius: 5px;
+}
+
+h1 {
+    color: black;
+}
+</style>
