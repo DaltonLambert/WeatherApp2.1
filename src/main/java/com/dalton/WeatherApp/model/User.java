@@ -7,16 +7,16 @@ public class User {
     private int id;
     private String username;
     @JsonIgnore
-    private String password;
+    private String passwordHash;
 
-    public User(int id, String username, String password) {
+    public User(int id, String username, String passwordHash) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     public User(){
-        
+
     }
 
     public int getId() {
@@ -35,12 +35,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
                 '}';
     }
 
