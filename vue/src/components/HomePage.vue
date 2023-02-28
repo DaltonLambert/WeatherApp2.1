@@ -1,39 +1,42 @@
 <template>
- <div class="container">
+  <div class="container">
     <header class="header">
       <div class="header-content">
-      <h1>Dalton's Weather App</h1>
-      <div class="search-container">
-      <input class="search-bar" type="text" placeholder="Search for a city" v-model="searchTerm">
-      <button @click="searchForWeather">Search</button>
-      </div>
+        <h1>Dalton's Weather App</h1>
+        <div class="search-container">
+          <input class="search-bar" type="text" placeholder="Search for a city" v-model="searchTerm">
+          <button @click="searchForWeather">Search</button>
+        </div>
       </div>
     </header>
     <main class="main">
-      <template v-if="temperature"> 
-      <div class="main-content">
-      <div class="weather-card">
-        <h1>{{temperature.location }} <span class="current-time">{{currentTime}}</span></h1>
-        <h2>Current Conditions</h2>
-        <div class="weather-components">
-        <p> {{temperature.description }} 
-          <img class="icon" :src="`http://openweathermap.org/img/wn/${temperature.icon}@2x.png`" alt="Weather condition icon" />
-        </p>
-        <p>Temperature: {{temperature.temperature }}°F</p>
-        <p>Humidity: {{temperature.humidity}}</p>
-      </div>
-      </div>
-      <div class="forecast-card-container">
-      <div class="forecast-card" v-for="(day, index) in forecast" :key="index">
-        <h1>
-          <img class="icon2" :src="`http://openweathermap.org/img/wn/${day.icon}@2x.png`" alt="Weather condition icon" />
-        </h1>
-        <h1>{{ day.high }}°F</h1>
-        <h1>{{ day.low }}°F</h1>
-      </div>
-      </div>
-      </div>
-     </template>
+      <template v-if="temperature">
+        <div class="main-content">
+          <div class="weather-card">
+            <h1>{{ temperature.location }} <span class="current-time">{{ currentTime }}</span></h1>
+            <h2>Current Conditions</h2>
+            <div class="weather-components">
+              <p> {{ temperature.description }}
+                <img class="icon" :src="`http://openweathermap.org/img/wn/${temperature.icon}@2x.png`"
+                  alt="Weather condition icon" />
+              </p>
+              <p>Temperature: {{ temperature.temperature }}°F</p>
+              <p>Humidity: {{ temperature.humidity }}</p>
+              
+            </div>
+          </div>
+          <div class="forecast-card-container">
+            <div class="forecast-card" v-for="(day, index) in forecast" :key="index">
+              <h1>
+                <img class="icon2" :src="`http://openweathermap.org/img/wn/${day.icon}@2x.png`"
+                  alt="Weather condition icon" />
+              </h1>
+              <h1>{{ day.high }}°F</h1>
+              <h1>{{ day.low }}°F</h1>
+            </div>
+          </div>
+        </div>
+      </template>
     </main>
     <footer class="footer">
     </footer>
@@ -64,32 +67,33 @@ export default {
   },
   methods: {
     async searchForWeather() {
-  try {
-    const weather = await WeatherService.findByLocation(this.searchTerm);
-    console.log(weather.data);
-    this.temperature = weather.data;
-    this.timezone = weather.data.timezone;
-    const forecast = await WeatherService.getForecast(this.searchTerm); 
-    this.forecast = forecast.data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-
-
+      try {
+        const weather = await WeatherService.findByLocation(this.searchTerm);
+        console.log(weather.data);
+        this.temperature = weather.data;
+        this.timezone = weather.data.timezone;
+        const forecast = await WeatherService.getForecast(this.searchTerm);
+        this.forecast = forecast.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   }
 };
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+
  .container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: "header" "main" "footer";
-  height: 100vh;
   background-image: url('https://i.pinimg.com/originals/31/68/c0/3168c09eeeb529be5b321575fe56b02b.gif');
   background-size: cover;
+  height: 100%;
 }
 .header {
   grid-area: header;
@@ -102,7 +106,7 @@ export default {
 }
 .main {
   grid-area: main;
-  height: 60vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,10 +118,11 @@ export default {
 }
 .footer {
   grid-area: footer;
-  height: 20vh;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 input[type="text"] {
