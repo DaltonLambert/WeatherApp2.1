@@ -55,20 +55,17 @@ public class JdbcWeatherDao implements WeatherDao {
 
     @Override
     public Weather createWeather(Weather weather){
-        String sql = "INSERT INTO weather (location_name, temperature) VALUES (?, ?) returning id";
-        int newId = jdbcTemplate.queryForObject(sql, int.class, weather.getLocation(), weather.getTemperature());
+        String sql = "INSERT INTO weather (temperature, humidity, location_name) VALUES (?, ?, ?) returning id";
+        int newId = jdbcTemplate.queryForObject(sql, int.class,  weather.getTemperature(), weather.getHumidity(), weather.getLocation());
         return findById(newId);
     }
 
     public Weather mapRowToWeather(SqlRowSet results){
         Weather weather = new Weather();
         weather.setId(results.getInt("id"));
-        weather.setLocation(results.getString("location_name"));
         weather.setTemperature(results.getDouble("temperature"));
         weather.setHumidity(results.getInt("humidity"));
-        weather.setDescription(results.getString("description"));
-        weather.setIcon(results.getString("icon"));
-        weather.setTimezone(results.getInt("timezone"));
+        weather.setLocation(results.getString("location_name"));
         return weather;
     }
 }

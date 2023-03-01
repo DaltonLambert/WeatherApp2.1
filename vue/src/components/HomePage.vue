@@ -13,7 +13,8 @@
       <template v-if="temperature">
         <div class="main-content">
           <div class="weather-card">
-            <h1>{{ temperature.location }} <span class="current-time">{{ currentTime }}</span></h1>
+            <h1>{{ temperature.location }} <span class="current-time">{{ currentTime }}
+            <button v-on:click.prevent="addToFavorites(temperature)">Favorite</button></span></h1>
             <h2>Current Conditions</h2>
             <div class="weather-components">
               <p> {{ temperature.description }}
@@ -78,6 +79,13 @@ export default {
         console.error(error);
       }
     },
+    addToFavorites(temperature){
+      if (confirm("Add Weather to your favorites?"))
+      WeatherService.createWeather(temperature).then((response) => {
+        alert("Weather added to favorites!")
+        console.log(response)
+      });
+    }
   }
 };
 </script>

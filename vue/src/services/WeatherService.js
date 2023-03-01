@@ -13,4 +13,8 @@ export default {
         return http.get(`forecast/location/${location}`);
         },
 
+    createWeather(temperature){
+        return http.post('weather', temperature)
+    }
+
     }

@@ -1,6 +1,7 @@
 package com.dalton.WeatherApp.controller;
 
 import com.dalton.WeatherApp.dao.JdbcWeatherDao;
+import com.dalton.WeatherApp.dao.WeatherDao;
 import com.dalton.WeatherApp.model.Weather;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,9 @@ import java.util.Map;
 @RequestMapping("/weather")
 public class WeatherController {
 
-    private final JdbcWeatherDao weatherDao;
+    private final WeatherDao weatherDao;
 
-    public WeatherController(JdbcWeatherDao weatherDao) {
+    public WeatherController(WeatherDao weatherDao) {
         this.weatherDao = weatherDao;
     }
 

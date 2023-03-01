@@ -2,10 +2,14 @@ package com.dalton.WeatherApp.dao;
 
 import com.dalton.WeatherApp.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +35,27 @@ public class JdbcUserDao implements UserDao{
     }
 
     @Override
-    public boolean createUser(String username, String password) {
+    public User createUser(User user) {
         String sqlCreateUser = "INSERT INTO weather (username, password_hash) VALUES (?, ?) returning id";
-        String passwordHashValue = new BCryptPasswordEncoder().encode(password);
+        String passwordHashValue = new BCryptPasswordEncoder().encode(user.getPasswordHash());
 
-        return jdbcTemplate.update(sqlCreateUser, username, passwordHashValue) == 1;
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sqlCreateUser, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, passwordHashValue);
+            return ps;
+        }, keyHolder);
+
+        if (rowsAffected == 1) {
+            user.setId(keyHolder.getKey().intValue());
+            return user;
+        } else {
+            return null;
+        }
     }
+
+
 
     public User mapRowToUser(SqlRowSet results){
         User user = new User();
